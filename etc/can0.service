@@ -1,0 +1,15 @@
+[Unit]
+Description=CAN0 Configuration
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/ip link set can0 down
+ExecStart=/bin/ip link set can0 type can bitrate 500000
+ExecStartPost=/bin/ip link set can0 up
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+Alias=can0.service
